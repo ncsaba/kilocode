@@ -25,7 +25,7 @@
 	"dependencies": {
 		"chalk": "^5.4.1",
 		"change-case": "^5.4.4",
-		"fs-extra": "^11.2.0",
+		"fs-extra": "^11.3.4",
 		"signale": "^1.4.0"
 	}
 }
