@@ -23,6 +23,7 @@ import { getAccessMcpResourceDescription } from "./access-mcp-resource"
 import { getSwitchModeDescription } from "./switch-mode"
 import { getNewTaskDescription } from "./new-task"
 import { getCodebaseSearchDescription } from "./codebase-search"
+import { getMemorySearchDescription } from "./memory-search"
 import { getUpdateTodoListDescription } from "./update-todo-list"
 import { getRunSlashCommandDescription } from "./run-slash-command"
 import { getGenerateImageDescription } from "./generate-image"
@@ -33,6 +34,7 @@ import { isFastApplyAvailable } from "../../tools/kilocode/editFileTool"
 import { getEditFileDescription } from "./edit-file"
 import { type ClineProviderState } from "../../webview/ClineProvider"
 import { ManagedIndexer } from "../../../services/code-index/managed/ManagedIndexer"
+import { MemoryIndexManager } from "../../../services/memory-index/manager"
 // kilocode_change end
 
 // Map of tool names to their description functions
@@ -49,6 +51,7 @@ const toolDescriptionMap: Record<string, (args: ToolArgs) => string | undefined>
 	use_mcp_tool: (args) => getUseMcpToolDescription(args),
 	access_mcp_resource: (args) => getAccessMcpResourceDescription(args),
 	codebase_search: (args) => getCodebaseSearchDescription(args),
+	memory_search: (args) => getMemorySearchDescription(args),
 	switch_mode: () => getSwitchModeDescription(),
 	new_task: (args) => getNewTaskDescription(args),
 	// kilocode_change start: Fast Apply
@@ -141,6 +144,11 @@ export function getToolDescriptionsForMode(
 		tools.delete("codebase_search")
 	}
 	// kilocode_change end
+	// Memory search availability
+	const memoryIndexManager = MemoryIndexManager.getInstance()
+	if (!memoryIndexManager || memoryIndexManager.getStatus().state !== "ready") {
+		tools.delete("memory_search")
+	}
 
 	// kilocode_change start: Fast Apply
 	if (isFastApplyAvailable(clineProviderState)) {

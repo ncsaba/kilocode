@@ -287,6 +287,7 @@ function buildGatekeeperPrompt(
 		case "list_files":
 		case "search_files":
 		case "codebase_search":
+		case "memory_search":
 		case "read_file": {
 			return { preApproved: true, systemPrompt: "", userPrompt: "" }
 		}

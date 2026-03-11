@@ -126,6 +126,7 @@ export type NativeToolArgs = {
 	update_todo_list: { todos: string }
 	use_mcp_tool: { server_name: string; tool_name: string; arguments?: Record<string, unknown> }
 	write_to_file: { path: string; content: string }
+	memory_search: { query: string; path?: string }
 	// Add more tools as they are migrated to native protocol
 }
 
@@ -305,6 +306,7 @@ export const TOOL_DISPLAY_NAMES: Record<ToolName, string> = {
 	new_task: "create new task",
 	new_rule: "create new rule",
 	codebase_search: "codebase search",
+	memory_search: "memory search",
 	update_todo_list: "update todo list",
 	run_slash_command: "run slash command",
 	generate_image: "generate images",
@@ -314,7 +316,7 @@ export const TOOL_DISPLAY_NAMES: Record<ToolName, string> = {
 // Define available tool groups.
 export const TOOL_GROUPS: Record<ToolGroup, ToolGroupConfig> = {
 	read: {
-		tools: ["read_file", "fetch_instructions", "search_files", "list_files", "codebase_search"],
+		tools: ["read_file", "fetch_instructions", "search_files", "list_files", "codebase_search", "memory_search"],
 	},
 	edit: {
 		tools: [

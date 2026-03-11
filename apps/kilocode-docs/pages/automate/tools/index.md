@@ -15,7 +15,7 @@ Tools are organized into logical groups based on their functionality:
 
 | Category           | Purpose                           | Tools                                                                                                                                                                                                                                                                                     | Common Use                                         |
 | ------------------ | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| **Read Group**     | File system reading and searching | [read_file](/docs/features/tools/read-file), [search_files](/docs/features/tools/search-files), [list_files](/docs/features/tools/list-files), [list_code_definition_names](/docs/features/tools/list-code-definition-names)                                                              | Code exploration and analysis                      |
+| **Read Group**     | File system reading and searching | [read_file](/docs/features/tools/read-file), [search_files](/docs/features/tools/search-files), [list_files](/docs/features/tools/list-files), [list_code_definition_names](/docs/features/tools/list-code-definition-names), [memory_search](/docs/features/tools/memory-search)         | Code exploration and analysis                      |
 | **Edit Group**     | File system modifications         | [apply_diff](/docs/features/tools/apply-diff), [delete_file](/docs/features/tools/delete-file), [write_to_file](/docs/features/tools/write-to-file)                                                                                                                                       | Code changes and file manipulation                 |
 | **Browser Group**  | Web automation                    | [browser_action](/docs/features/tools/browser-action)                                                                                                                                                                                                                                     | Web testing and interaction                        |
 | **Command Group**  | System command execution          | [execute_command](/docs/features/tools/execute-command)                                                                                                                                                                                                                                   | Running scripts, building projects                 |
@@ -42,6 +42,7 @@ These tools help Kilo Code understand your code and project:
 - [search_files](/docs/features/tools/search-files) - Finds patterns across multiple files
 - [list_files](/docs/features/tools/list-files) - Maps your project's file structure
 - [list_code_definition_names](/docs/features/tools/list-code-definition-names) - Creates a structural map of your code
+- [memory_search](/docs/features/tools/memory-search) - Searches project memory files semantically
 
 ### Edit Tools
 

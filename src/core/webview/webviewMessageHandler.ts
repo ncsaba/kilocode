@@ -55,6 +55,7 @@ import { changeLanguage, t } from "../../i18n"
 import { Package } from "../../shared/package"
 import { type RouterName, toRouterName } from "../../shared/api"
 import { MessageEnhancer } from "./messageEnhancer"
+import { MemoryIndexManager } from "../../services/memory-index/manager"
 
 import { checkExistKey } from "../../shared/checkExistApiConfig"
 import { experimentDefault } from "../../shared/experiments"
@@ -3541,6 +3542,27 @@ export const webviewMessageHandler = async (
 			provider.postMessageToWebview({
 				type: "indexingStatusUpdate",
 				values: status,
+			})
+			break
+		}
+		case "requestMemoryIndexStatus": {
+			const manager = MemoryIndexManager.getInstance(provider.context)
+			const status = manager?.getStatus() ?? { state: "disabled", reason: "Not initialized" }
+			provider.postMessageToWebview({
+				type: "memoryIndexStatusUpdate",
+				values: status,
+			})
+			break
+		}
+		case "memoryIndexRetryConnection": {
+			const manager = MemoryIndexManager.getInstance(provider.context)
+			if (!manager) {
+				break
+			}
+			await manager.retryConnection()
+			provider.postMessageToWebview({
+				type: "memoryIndexStatusUpdate",
+				values: manager.getStatus(),
 			})
 			break
 		}

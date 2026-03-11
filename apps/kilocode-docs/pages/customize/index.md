@@ -26,6 +26,7 @@ Configure how Kilo Code behaves and responds:
 Help Kilo understand your codebase better:
 
 - [**Codebase Indexing**](/docs/customize/context/codebase-indexing) - Build a semantic index of your code for better context awareness
+- [**Memory Indexing**](/docs/customize/context/memory-indexing) - Make MEMORY.md and memory folders searchable
 - [**Context Condensing**](/docs/customize/context/context-condensing) - Summarize older context to stay within limits
 - [**Memory Bank**](/docs/customize/context/memory-bank) - Store project context, decisions, and important information
 - [**Large Projects**](/docs/customize/context/large-projects) - Best practices for working with monorepos and large codebases
@@ -37,6 +38,7 @@ New to customization? Here's where to start:
 1. **Start with Custom Instructions** — Set up instructions in the [Custom Instructions](/docs/customize/custom-instructions) section to guide Kilo Code's behavior
 2. **Explore Custom Modes** — Try the built-in modes first, then create your own
 3. **Enable Codebase Indexing** — Help Kilo understand your project structure
+4. **Enable Memory Indexing** — Keep project memory searchable across sessions
 
 ## Best Practices
 
@@ -49,6 +51,3 @@ New to customization? Here's where to start:
 - Check out [**Code with AI**](/docs/code-with-ai) to learn how to use Kilo effectively
 - Explore [**Automate**](/docs/automate) for CI/CD integration and advanced automation
 - Learn about [**Collaboration**](/docs/collaborate) features for teams
-
-
-

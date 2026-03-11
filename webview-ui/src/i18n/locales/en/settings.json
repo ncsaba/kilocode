@@ -205,6 +205,26 @@
 		"cancelIndexingButton": "Cancel Indexing",
 		"optional": "optional"
 	},
+	"memoryIndex": {
+		"title": "Memory Index",
+		"description": "Track and search MEMORY.md and memory/**/*.md using semantic embeddings.",
+		"docsLink": "Docs",
+		"statusTitle": "Status",
+		"status": {
+			"disabled": "Disabled",
+			"connecting": "Connecting",
+			"ready": "Ready",
+			"error": "Error",
+			"unknown": "Unknown"
+		},
+		"readyDetail": "Indexed {{count}} repo(s).",
+		"disabledDetail": "Disabled: {{reason}}",
+		"disabledDetailFallback": "Disabled until a Postgres + pgvector connection is available.",
+		"connectingDetail": "Connecting to Postgres and preparing the memory index.",
+		"errorDetail": "Error: {{error}}",
+		"errorDetailFallback": "Unable to connect to the memory index.",
+		"retryButton": "Retry connection"
+	},
 	"autoApprove": {
 		"description": "Run these actions without asking for permission. Only enable for actions you fully trust and if you understand the security risks.",
 		"toggleShortcut": "You can configure a keyboard shortcut for this setting <SettingsLink>in your IDE preferences</SettingsLink>.",

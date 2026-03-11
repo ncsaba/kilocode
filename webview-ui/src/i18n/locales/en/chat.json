@@ -456,6 +456,13 @@
 		"error": "Index error",
 		"status": "Index status"
 	},
+	"memoryIndexStatus": {
+		"ready": "Memory ready ({{count}} repo)",
+		"connecting": "Memory connecting",
+		"error": "Memory error",
+		"disabled": "Memory disabled",
+		"status": "Memory status"
+	},
 	"versionIndicator": {
 		"ariaLabel": "Version {{version}} - Click to view release notes"
 	},

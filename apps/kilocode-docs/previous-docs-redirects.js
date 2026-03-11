@@ -730,6 +730,12 @@ module.exports = [
 		permanent: true,
 	},
 	{
+		source: "/docs/features/tools/memory-search",
+		destination: "/docs/automate/tools/memory-search",
+		basePath: false,
+		permanent: true,
+	},
+	{
 		source: "/docs/features/tools/new-task",
 		destination: "/docs/automate/tools/new-task",
 		basePath: false,

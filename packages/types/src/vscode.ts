@@ -61,6 +61,7 @@ export const commandIds = [
 	"importSettings", // kilocode_change
 	"exportSettings", // kilocode_change
 	"generateTerminalCommand", // kilocode_change
+	"memoryIndexRetryConnection",
 	"handleExternalUri", // kilocode_change - for JetBrains plugin URL forwarding
 	"focusPanel",
 	"toggleAutoApprove",

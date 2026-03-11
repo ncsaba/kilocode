@@ -284,6 +284,11 @@
 				"category": "%configuration.title%"
 			},
 			{
+				"command": "kilo-code.memoryIndexRetryConnection",
+				"title": "Retry Memory Index Connection",
+				"category": "%configuration.title%"
+			},
+			{
 				"command": "kilo-code.agentManagerOpen",
 				"title": "Open Agent Manager",
 				"icon": "$(circuit-board)",
@@ -594,6 +599,98 @@
 					"maximum": 200,
 					"description": "%settings.codeIndex.embeddingBatchSize.description%"
 				},
+				"kilo-code.memoryIndex.enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "%settings.memoryIndex.enabled.description%"
+				},
+				"kilo-code.memoryIndex.memoryDirName": {
+					"type": "string",
+					"default": "memory",
+					"description": "%settings.memoryIndex.memoryDirName.description%"
+				},
+				"kilo-code.memoryIndex.memoryFileName": {
+					"type": "string",
+					"default": "MEMORY.md",
+					"description": "%settings.memoryIndex.memoryFileName.description%"
+				},
+				"kilo-code.memoryIndex.includeMemoryDir": {
+					"type": "boolean",
+					"default": true,
+					"description": "%settings.memoryIndex.includeMemoryDir.description%"
+				},
+				"kilo-code.memoryIndex.includeMemoryFile": {
+					"type": "boolean",
+					"default": true,
+					"description": "%settings.memoryIndex.includeMemoryFile.description%"
+				},
+				"kilo-code.memoryIndex.providers": {
+					"type": "array",
+					"default": [
+						"openai",
+						"openrouter",
+						"gemini",
+						"mistral",
+						"voyage",
+						"ollama",
+						"openai-compatible",
+						"vercel-ai-gateway",
+						"bedrock"
+					],
+					"description": "%settings.memoryIndex.providers.description%"
+				},
+				"kilo-code.memoryIndex.modelId": {
+					"type": "string",
+					"default": "",
+					"description": "%settings.memoryIndex.modelId.description%"
+				},
+				"kilo-code.memoryIndex.modelDimension": {
+					"type": "number",
+					"default": 0,
+					"description": "%settings.memoryIndex.modelDimension.description%"
+				},
+				"kilo-code.memoryIndex.embeddingBatchSize": {
+					"type": "number",
+					"default": 60,
+					"minimum": 1,
+					"maximum": 200,
+					"description": "%settings.memoryIndex.embeddingBatchSize.description%"
+				},
+				"kilo-code.memoryIndex.searchMinScore": {
+					"type": "number",
+					"default": 0.15,
+					"description": "%settings.memoryIndex.searchMinScore.description%"
+				},
+				"kilo-code.memoryIndex.searchMaxResults": {
+					"type": "number",
+					"default": 10,
+					"description": "%settings.memoryIndex.searchMaxResults.description%"
+				},
+				"kilo-code.memoryIndex.ollamaBaseUrl": {
+					"type": "string",
+					"default": "",
+					"description": "%settings.memoryIndex.ollamaBaseUrl.description%"
+				},
+				"kilo-code.memoryIndex.openAiCompatibleBaseUrl": {
+					"type": "string",
+					"default": "",
+					"description": "%settings.memoryIndex.openAiCompatibleBaseUrl.description%"
+				},
+				"kilo-code.memoryIndex.openRouterSpecificProvider": {
+					"type": "string",
+					"default": "",
+					"description": "%settings.memoryIndex.openRouterSpecificProvider.description%"
+				},
+				"kilo-code.memoryIndex.bedrockRegion": {
+					"type": "string",
+					"default": "us-east-1",
+					"description": "%settings.memoryIndex.bedrockRegion.description%"
+				},
+				"kilo-code.memoryIndex.bedrockProfile": {
+					"type": "string",
+					"default": "",
+					"description": "%settings.memoryIndex.bedrockProfile.description%"
+				},
 				"kilo-code.toolProtocol": {
 					"type": "string",
 					"enum": [
@@ -733,6 +830,7 @@
 		"pretty-bytes": "^7.0.0",
 		"proper-lockfile": "^4.1.2",
 		"ps-list": "^8.1.1",
+		"pg": "^8.12.0",
 		"puppeteer-chromium-resolver": "^24.0.0",
 		"puppeteer-core": "^23.4.0",
 		"quick-lru": "^7.0.0",

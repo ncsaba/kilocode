@@ -11,6 +11,7 @@ import { isToolAllowedForMode } from "../../../core/tools/validateToolUse"
 import { ClineProviderState } from "../../webview/ClineProvider"
 import { isFastApplyAvailable } from "../../tools/kilocode/editFileTool"
 import { ManagedIndexer } from "../../../services/code-index/managed/ManagedIndexer"
+import { MemoryIndexManager } from "../../../services/memory-index/manager"
 // kilocode_change end
 
 /**
@@ -302,6 +303,10 @@ export function filterNativeToolsForMode(
 		allowedToolNames.delete("codebase_search")
 	}
 	// kilocode_change end
+	const memoryIndexManager = MemoryIndexManager.getInstance()
+	if (!memoryIndexManager || memoryIndexManager.getStatus().state !== "ready") {
+		allowedToolNames.delete("memory_search")
+	}
 
 	// Conditionally exclude update_todo_list if disabled in settings
 	if (settings?.todoListEnabled === false) {
@@ -396,6 +401,12 @@ export function isToolAllowedInMode(
 	settings?: Record<string, any>,
 ): boolean {
 	const modeSlug = mode ?? defaultModeSlug
+	if (toolName === "memory_search") {
+		const memoryIndexManager = MemoryIndexManager.getInstance()
+		if (memoryIndexManager?.getStatus().state !== "ready") {
+			return false
+		}
+	}
 
 	// Check if it's an always-available tool
 	if (ALWAYS_AVAILABLE_TOOLS.includes(toolName)) {
@@ -407,6 +418,10 @@ export function isToolAllowedInMode(
 				codeIndexManager.isFeatureConfigured &&
 				codeIndexManager.isInitialized
 			)
+		}
+		if (toolName === "memory_search") {
+			const memoryIndexManager = MemoryIndexManager.getInstance()
+			return memoryIndexManager?.getStatus().state === "ready"
 		}
 		if (toolName === "update_todo_list") {
 			return settings?.todoListEnabled !== false

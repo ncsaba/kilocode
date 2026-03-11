@@ -16,6 +16,7 @@ import { EXPERIMENT_IDS, experiments } from "../../shared/experiments"
 import { convertNewFileToUnifiedDiff, computeDiffStats, sanitizeUnifiedDiff } from "../diff/stats"
 import type { ToolUse } from "../../shared/tools"
 import { trackContribution } from "../../services/contribution-tracking/ContributionTrackingService" // kilocode_change
+import { MemoryIndexManager } from "../../services/memory-index/manager"
 
 import { BaseTool, ToolCallbacks } from "./BaseTool"
 
@@ -162,6 +163,10 @@ export class WriteToFileTool extends BaseTool<"write_to_file"> {
 				}
 
 				await task.diffViewProvider.saveDirectly(relPath, newContent, false, diagnosticsEnabled, writeDelayMs)
+				const memoryIndexManager = MemoryIndexManager.getInstance(task.providerRef.deref()?.context)
+				if (memoryIndexManager) {
+					void memoryIndexManager.notifyFileWritten(absolutePath)
+				}
 			} else {
 				if (!task.diffViewProvider.isEditing) {
 					const partialMessage = JSON.stringify(sharedMessageProps)
@@ -209,6 +214,10 @@ export class WriteToFileTool extends BaseTool<"write_to_file"> {
 				}
 
 				await task.diffViewProvider.saveChanges(diagnosticsEnabled, writeDelayMs)
+				const memoryIndexManager = MemoryIndexManager.getInstance(task.providerRef.deref()?.context)
+				if (memoryIndexManager) {
+					void memoryIndexManager.notifyFileWritten(absolutePath)
+				}
 			}
 
 			if (relPath) {

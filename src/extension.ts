@@ -31,6 +31,7 @@ import { claudeCodeOAuthManager } from "./integrations/claude-code/oauth"
 import { openAiCodexOAuthManager } from "./integrations/openai-codex/oauth"
 import { McpServerManager } from "./services/mcp/McpServerManager"
 import { CodeIndexManager } from "./services/code-index/manager"
+import { MemoryIndexManager } from "./services/memory-index/manager"
 import { registerCommitMessageProvider } from "./services/commit-message"
 import { MdmService } from "./services/mdm/MdmService"
 import { migrateSettings } from "./utils/migrateSettings"
@@ -212,6 +213,16 @@ export async function activate(context: vscode.ExtensionContext) {
 				context.subscriptions.push(manager)
 			}
 		}
+	}
+
+	// Initialize memory index manager in background
+	const memoryIndexManager = MemoryIndexManager.getInstance(context)
+	if (memoryIndexManager) {
+		void memoryIndexManager.initialize().catch((error) => {
+			const message = error instanceof Error ? error.message : String(error)
+			outputChannel.appendLine(`[MemoryIndexManager] Error during initialization: ${message}`)
+		})
+		context.subscriptions.push(memoryIndexManager)
 	}
 
 	// Initialize the provider *before* the Roo Code Cloud service.

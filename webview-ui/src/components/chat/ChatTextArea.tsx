@@ -33,6 +33,7 @@ import ContextMenu from "./ContextMenu"
 import { ImageWarningBanner } from "./ImageWarningBanner"
 import { VolumeX, Pin, Check, WandSparkles, SendHorizontal, Paperclip, MessageSquareX } from "lucide-react"
 import { IndexingStatusBadge } from "./IndexingStatusBadge"
+import { MemoryIndexStatusBadge } from "./MemoryIndexStatusBadge"
 import { MicrophoneButton } from "./MicrophoneButton" // kilocode_change: STT microphone button
 import { VolumeVisualizer } from "./VolumeVisualizer" // kilocode_change: STT volume level visual
 import { VoiceRecordingCursor } from "./VoiceRecordingCursor" // kilocode_change: STT recording cursor
@@ -1726,6 +1727,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 
 					{/* kilocode_change start */}
 					{!isEditMode && <IndexingStatusBadge className={cn({ hidden: containerWidth < 235 })} />}
+					{!isEditMode && <MemoryIndexStatusBadge className={cn({ hidden: containerWidth < 235 })} />}
 
 					<StandardTooltip content="Add Context (@)">
 						<button

@@ -19,6 +19,7 @@ import { t } from "../i18n"
 import { getAppUrl } from "@roo-code/types" // kilocode_change
 import { generateTerminalCommand } from "../utils/terminalCommandGenerator" // kilocode_change
 import { AgentManagerProvider } from "../core/kilocode/agent-manager/AgentManagerProvider" // kilocode_change
+import { MemoryIndexManager } from "../services/memory-index/manager"
 
 /**
  * Helper to get the visible ClineProvider instance or log if not found.
@@ -259,6 +260,17 @@ const getCommandsMap = ({ context, outputChannel }: RegisterCommandOptions): Rec
 		}
 	},
 	generateTerminalCommand: async () => await generateTerminalCommand({ outputChannel, context }), // kilocode_change
+	memoryIndexRetryConnection: async () => {
+		const manager = MemoryIndexManager.getInstance(context)
+		if (!manager) {
+			outputChannel.appendLine("[MemoryIndex] Manager not available")
+			return
+		}
+		outputChannel.appendLine("[MemoryIndex] Retrying connection...")
+		await manager.retryConnection()
+		const status = manager.getStatus()
+		outputChannel.appendLine(`[MemoryIndex] Status: ${status.state}`)
+	},
 	exportSettings: async () => {
 		const visibleProvider = getVisibleProviderOrLog(outputChannel)
 		if (!visibleProvider) return

@@ -6,6 +6,7 @@ import askFollowupQuestion from "./ask_followup_question"
 import attemptCompletion from "./attempt_completion"
 import browserAction from "./browser_action"
 import codebaseSearch from "./codebase_search"
+import memorySearch from "./memory_search"
 import executeCommand from "./execute_command"
 import fetchInstructions from "./fetch_instructions"
 import generateImage from "./generate_image"
@@ -71,6 +72,7 @@ export function getNativeTools(options: NativeToolsOptions = {}): OpenAI.Chat.Ch
 		attemptCompletion,
 		browserAction,
 		codebaseSearch,
+		memorySearch,
 		executeCommand,
 		fetchInstructions,
 		generateImage,

@@ -74,6 +74,7 @@ import { McpServerManager } from "../../services/mcp/McpServerManager"
 import { MarketplaceManager } from "../../services/marketplace"
 import { ShadowCheckpointService } from "../../services/checkpoints/ShadowCheckpointService"
 import { CodeIndexManager } from "../../services/code-index/manager"
+import { MemoryIndexManager } from "../../services/memory-index/manager"
 import type { IndexProgressUpdate } from "../../services/code-index/interfaces/manager"
 import { MdmService } from "../../services/mdm/MdmService"
 import { SessionManager } from "../../shared/kilocode/cli-sessions/core/SessionManager"
@@ -160,6 +161,8 @@ export class ClineProvider
 	private clineStack: Task[] = []
 	private codeIndexStatusSubscription?: vscode.Disposable
 	private codeIndexManager?: CodeIndexManager
+	private memoryIndexStatusSubscription?: vscode.Disposable
+	private memoryIndexManager?: MemoryIndexManager
 	private _workspaceTracker?: WorkspaceTracker // workSpaceTracker read-only for access outside this class
 	protected mcpHub?: McpHub // Change from private to protected
 	protected skillsManager?: SkillsManager
@@ -889,6 +892,7 @@ export class ClineProvider
 
 		// Initialize code index status subscription for the current workspace.
 		this.updateCodeIndexStatusSubscription()
+		this.updateMemoryIndexStatusSubscription()
 
 		// Listen for active editor changes to update code index status for the
 		// current workspace.
@@ -3111,6 +3115,41 @@ export class ClineProvider
 			this.postMessageToWebview({
 				type: "indexingStatusUpdate",
 				values: currentManager.getCurrentStatus(),
+			})
+		}
+	}
+
+	private updateMemoryIndexStatusSubscription(): void {
+		const currentManager = MemoryIndexManager.getInstance(this.context) ?? undefined
+
+		if (currentManager === this.memoryIndexManager) {
+			return
+		}
+
+		if (this.memoryIndexStatusSubscription) {
+			this.memoryIndexStatusSubscription.dispose()
+			this.memoryIndexStatusSubscription = undefined
+		}
+
+		this.memoryIndexManager = currentManager
+
+		if (currentManager) {
+			this.memoryIndexStatusSubscription = currentManager.onStatusUpdate((status) => {
+				if (currentManager === this.memoryIndexManager) {
+					this.postMessageToWebview({
+						type: "memoryIndexStatusUpdate",
+						values: status,
+					})
+				}
+			})
+
+			if (this.view) {
+				this.webviewDisposables.push(this.memoryIndexStatusSubscription)
+			}
+
+			this.postMessageToWebview({
+				type: "memoryIndexStatusUpdate",
+				values: currentManager.getStatus(),
 			})
 		}
 	}

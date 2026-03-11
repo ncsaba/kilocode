@@ -121,6 +121,17 @@ export interface IndexingStatusUpdateMessage {
 	values: IndexingStatus
 }
 
+export type MemoryIndexStatus =
+	| { state: "disabled"; reason?: string }
+	| { state: "connecting" }
+	| { state: "ready"; indexedRepos: number }
+	| { state: "error"; error: string }
+
+export interface MemoryIndexStatusUpdateMessage {
+	type: "memoryIndexStatusUpdate"
+	values: MemoryIndexStatus
+}
+
 export interface LanguageModelChatSelector {
 	vendor?: string
 	family?: string
@@ -147,6 +158,7 @@ export interface ExtensionMessage {
 		| "mcpServers"
 		| "enhancedPrompt"
 		| "commitSearchResults"
+		| "memoryIndexStatusUpdate"
 		| "listApiConfig"
 		| "routerModels"
 		| "openAiModels"
@@ -860,6 +872,8 @@ export interface WebviewMessage {
 		| "switchOrganization"
 		| "condenseTaskContextRequest"
 		| "requestIndexingStatus"
+		| "requestMemoryIndexStatus"
+		| "memoryIndexRetryConnection"
 		| "startIndexing"
 		| "cancelIndexing" // kilocode_change
 		| "clearIndexData"

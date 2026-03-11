@@ -13,6 +13,7 @@ export const ToolsNav: NavSection[] = [
 			{ href: "/automate/tools/list-files", children: "list_files" },
 			{ href: "/automate/tools/list-code-definition-names", children: "list_code_definition_names" },
 			{ href: "/automate/tools/codebase-search", children: "codebase_search" },
+			{ href: "/automate/tools/memory-search", children: "memory_search" },
 		],
 	},
 	{
